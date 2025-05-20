@@ -1,20 +1,21 @@
 @extends('layout')
 
-@section('title','Employee List')
+@section('title','Customers List')
 
 @section('content')
 <div class="row">
     <div class="col-12">
-        <h1>List of employees</h1>
+        <h1>List of customers</h1>
     </div>
 </div>
 <div class="row">
     <div class="col-12">
-        <form action="pincode.add" method="POST" class="pb-5">
+        <form action="customers.add" method="POST" class="pb-5">
             @csrf
-            <input type="text" name="pincode" placeholder="Enter pincode number">
-            <input type="text" name="city_code" placeholder="Enter pincode city">
-            <div><button type="submit" class="btn btn-primary">Add Pincode</button></div>
+            <div><input type="text" name="code" placeholder="Enter code"></div>
+            <div><input type="text" name="name" placeholder="Enter name"></div>
+            <div><input type="text" name="city" placeholder="Enter city"></div>
+            <div><button type="submit" class="btn btn-primary">Add customer</button></div>
             <div>
                 {{$errors->first('pincode')}}
             </div>
@@ -23,10 +24,14 @@
 </div>
 <div class="row">
     <div class="col-12">
-        <form action="{{ route('employee.list') }}" method="GET" class="pb-5">
-            <input type="text" name="filter" placeholder="Search pincode" value="{{ request('filter') }}">
+        <form action="{{ route('customers.list') }}" method="GET" class="pb-5">
+            <input type="text" name="customer" placeholder="Search customer" value="{{ request('customer') }}">
             <button type="submit" class="btn btn-primary">Search</button>
+            <div>
+                {{ $errors->first('customer') }}
+            </div>
         </form>
+        
     </div>
 </div>
 <div class="row">
@@ -35,26 +40,28 @@
             <thead>
                 <tr>
                     <th>s_no</th>
-                    <th>Pincode</th>
+                    <th>Code</th>
+                    <th>Name</th>
                     <th>City</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($employees as $index => $employee)
+                @foreach ($customers as $index => $customer)
                 <tr>
                     {{-- Serial number across paginated pages --}}
-                    <td>{{ $loop->iteration + ($employees->currentPage() - 1) * $employees->perPage() }}</td>
-                    <td>{{ $employee->pincode_value }}</td>
-                    <td>{{ $employee->city_code }}</td>
+                    <td>{{ $loop->iteration + ($customers->currentPage() - 1) * $customers->perPage() }}</td>
+                    <td>{{ $customer->cust_code }}</td>
+                    <td>{{ $customer->cust_la_ent }}</td>
+                    <td>{{ $customer->cust_location }}</td>
                     <td>
                         <!-- Edit Icon -->
-                        <a href="{{ route('pincode.edit', $employee->pincode_value) }}" class="btn btn-sm btn-outline-primary">
+                        <a href="{{ route('customers.edit', $customer->cust_code) }}" class="btn btn-sm btn-outline-primary">
                             <i class="fas fa-edit">Edit</i>
                         </a>
             
                         <!-- Delete Icon -->
-                        <form action="{{ route('pincode.delete', $employee->pincode_value) }}" method="POST" style="display:inline-block;">
+                        <form action="{{ route('customers.delete', $customer->cust_code) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this item?')">
@@ -70,7 +77,7 @@
 </div>
 <div class="row">
     <div class="col-12 text-center">
-        {{ $employees->links() }}
+        {{ $customers->links() }}
     </div>
 </div>
 @if(session('success'))

@@ -27,7 +27,13 @@ Route::get('/about', function () {
 
 Route::get('employee.list', [ListEmployeeController::class,'listEmployee'])->name('employee.list'); // Equivalent to Route::get('customers', 'ListEmployeeController@listEmployee');
 Route::post('pincode.add', [ListEmployeeController::class,'storePincode']);
-Route::post('pincode.search', [ListEmployeeController::class,'searchPincode']);
 Route::get('/pincode/{id}/edit', [ListEmployeeController::class, 'edit'])->name('pincode.edit');
 Route::put('/pincode/{id}', [ListEmployeeController::class, 'update'])->name('pincode.update');
 Route::delete('/pincode/{id}', [ListEmployeeController::class, 'deletePincode'])->name('pincode.delete');
+
+Route::get('customers.list', [ListEmployeeController::class,'listCustomers'])->name('customers.list'); // Equivalent to Route::get('customers', 'ListEmployeeController@listEmployee');
+Route::post('customers.add', [ListEmployeeController::class,'storeCustomer']);
+Route::post('customers.search', [ListEmployeeController::class,'searchCustomer']);
+Route::get('/customers/{id}/edit', [ListEmployeeController::class, 'editCustomer'])->name('customers.edit');
+Route::put('/customers/{id}', [ListEmployeeController::class, 'updateCustomer'])->name('customers.update');
+Route::delete('/customers/{id}', [ListEmployeeController::class, 'deleteCustomer'])->name('customers.delete');
