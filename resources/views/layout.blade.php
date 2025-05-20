@@ -22,6 +22,9 @@
         <li class="nav-item">
             <a class="nav-link" href="/employee.list">List of Employee</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/customers.list">List of Customers</a>
+        </li>
     </ul>
   @yield('content')
 </div>

@@ -14,6 +14,7 @@
             <div class="mb-3">
                 <label for="pincode_value" class="form-label">Pincode</label>
                 <input type="text" name="pincode_value" value="{{ old('pincode_value', $pincode->pincode_value) }}" class="form-control">
+                <input type="text" name="city_code" value="{{ old('city_code', $pincode->city_code) }}" class="form-control">
                 @error('pincode_value')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
